@@ -1,3 +1,25 @@
-<div>
-	Profile
+<div class="row" id="profile">
+	<div class="col-md-3">
+		<h1>Y O U R <br /> D E C K S</h1>
+	</div>
+	<div class="col-md-9">
+		<ul style="list-style-type:none" id="deck-list">
+
+			<li ng-repeat="deck in decks"
+			    style="float:left;width:40%;padding:1%;">
+				<a ng-click="open(deck)" href="#" style="text-decoration:none">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							{{ deck.name }}
+						</div>
+						<div class="panel-body">
+							<span ng-if="deck.description"> {{ deck.description }}</span>
+							<p>Card Count: {{ deck.cards.length }}</p>
+						</div>
+					</div>
+				</a>
+			</li>
+
+		</ul>
+	</div>
 </div>

@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $uibModal, DeckService) {
 
     return {
         restrict: 'E',
@@ -34,8 +34,23 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
 
-        }
+            /* Create New Deck Modal */
+            scope.animationsEnabled = true;
+            scope.open = function (size) {
 
+                var modalInstance = $uibModal.open({
+                    animation: scope.animationsEnabled,
+                    templateUrl: '/js/common/directives/navbar/new-deck.template.html',
+                    controller: 'NewDeckModalCtrl',
+                    size: size
+                });
+
+                modalInstance.result.then(function (newDeck) {
+                    $rootScope.$broadcast('deckAdded');
+                });
+
+            }; /* end scope.open */
+
+        } /* end link function */
     };
-
 });

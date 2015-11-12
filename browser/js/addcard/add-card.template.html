@@ -1,0 +1,16 @@
+<form name="addCard">
+	<div class="form-group">
+		<label for="card">Give your new card a name! (We'll give it a default name if you don't feel like it)</label>
+		<input name="newCardName" ng-model="card.name" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label for="templateSelect">Select a card template to get this started!</label>
+		<select name="templateSelect" class="form-control" ng-model="card.svg">
+			<option ng-value="blank">Blank Template</option>
+			<option ng-value="blankFrame">Blank with Frame</option>
+			<option ng-value="summoner">Summoner</option>
+			<option ng-value="monsterCollector">Monster Collector</option>
+		</select>
+	</div>
+	<button ng-click="submit(deck._id, card)" class="btn btn-success">Let's Go!</button>
+</form>

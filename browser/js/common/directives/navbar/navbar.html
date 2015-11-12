@@ -15,17 +15,10 @@
                 <a ng-show="!user" ui-sref="signup">Signup</a>
             </li>
             <li>
-                <a ng-show="user" href="#">Create New Deck</a>
+                <a ng-show="user" ui-sref="profile(user._id)">Your Profile</a>
             </li>
             <li>
-                <span uib-dropdown on-toggle="toggled(open)">
-                    <a ng-show="user" href="#" uib-dropdown-toggle>
-                        Your Decks <span class="caret"></span>
-                    </a>
-                    <ul ng-show="user" class="uib-dropdown-menu">
-                        <li ng-repeat="deck in user.decks"><a href="#">{{ deck.name }}</a></li>
-                    </ul>
-                </span>
+                <a ng-show="user" ng-click="open('lg')" href="#">Create New Deck</a>
             </li>
             <li>
                 <a ng-show="user" ng-click="logout()" href="#">Logout</a>

@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-md-8">
+		<h1>{{ card.name }}</h1>
+		<div id="svg-container" style="height:100%;width:100%"></div>
+	</div>
+	<div class="col-md-4" id="toolbar">
+		<!-- Change Background Color -->
+		<h4>
+			<a colorpicker="rgba" type="text" ng-model="edit.fill" href="#">Change Background Color</a>
+			<span class="btn" style="background-color:{{ edit.fill }};" ng-click="changeBgColor(edit.fill)">Apply</span>
+		</h4>
+		<!-- Change Background Image -->
+		<h4>Add Background Image</h4>
+		<span class="btn" ng-click="">Upload & Apply</span>
+
+		<!-- Change Border Size -->
+		<h4>
+			Change Border Size
+			<span class="btn" ng-click="changeBorderSize(edit.borderSize)">Apply</span>
+		</h4>
+		<input type="number" class="form-control" ng-model="edit.borderSize" />
+
+		<!-- Change Border Color -->
+		<h4>
+			<a colorpicker="rgba" type="text" ng-model="edit.strokeColor" href="#">Change Border Color</a>
+			<span class="btn" style="background-color:{{ edit.strokeColor }};" ng-click="changeBorderColor(edit.strokeColor)">Apply</span>
+		</h4>
+
+		<!-- Change Text Element -->
+		<h4>Add Text Element</h4>
+
+		<!-- Save -->
+		<button class="btn btn-success" ng-click="save()">Save Changes</button><br /><br />
+		<uib-alert type="success" ng-show="toggleAlert"> Nice! All saved!</uib-alert>
+
+	</div>
+</div>

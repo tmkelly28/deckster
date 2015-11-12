@@ -1,0 +1,22 @@
+{
+  "name": "Deckster",
+  "description": "An app for creating card games",
+  "main": "server/start.js",
+  "authors": [
+    "tmkelly28 <tmkelly28@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tmkelly28/deckster",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-fontselect": "~0.12.3",
+    "jquery": "~2.1.4"
+  }
+}

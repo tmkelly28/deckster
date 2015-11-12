@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ deck.name }}</h3>
+</div>
+<div class="modal-body">
+	<form name="deckOptions">
+		<div class="list-group">
+			<a class="list-group-item list-group-item-info" ng-click="goCards()" href="#">Manage Cards</a>
+			<a class="list-group-item list-group-item-success" ng-click="goAddCard()" href="#">Add New Card</a>
+			<a class="list-group-item list-group-item-warning" ng-click="goPrint()" href="#">Print Deck</a>
+			<a class="list-group-item list-group-item-danger" ng-click="cancel()" href="#">Cancel</a>
+		</div>
+	</form>
+</div>

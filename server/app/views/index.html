@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <link href='/angular-bootstrap-colorpicker/css/colorpicker.min.css' rel='stylesheet' type='text/css'>
     <script src="/lodash/index.js"></script>
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/angular/angular.js"></script>
@@ -13,10 +14,17 @@
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
     <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js"></script>
     <script src="/main.js"></script>
 </head>
 <body ng-app="FullstackGeneratedApp">
-    <navbar></navbar>
-    <div id="main" class="fade" ui-view></div>
+    <div class="row">
+        <div class="col-md-2">
+            <navbar></navbar>
+        </div>
+        <div class="col-md-10">
+            <div id="main" class="fade" ui-view></div>
+        </div>
+    </div>
 </body>
 </html>

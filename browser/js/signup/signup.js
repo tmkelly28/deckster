@@ -15,8 +15,8 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state) {
 
         $scope.error = null;
 
-        AuthService.signup(signupInfo).then(function () {
-            $state.go('profile');
+        AuthService.signup(signupInfo).then(function (user) {
+            $state.go('profile', {uid: user._id});
         }).catch(function () {
             $scope.error = 'Invalid signup credentials.';
         });

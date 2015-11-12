@@ -20,6 +20,21 @@ body {
   margin: 0 auto;
 }
 
+#toolbar {
+  background-color: rgba(0,0,0,0.5);
+  height:100%;
+  position:absolute;
+  right:0;
+
+  a {
+    color: #333333;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #314190;
+  }
+}
+
 @import 'animations/main';
 @import 'directives/main';
 @import 'home/main';

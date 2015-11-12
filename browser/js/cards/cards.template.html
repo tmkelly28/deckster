@@ -1,0 +1,21 @@
+<div class="row" id="cards">
+	<div class="col-md-3">
+		<h3>Cards in<br />{{ deck.name }}</h3>
+	</div>
+	<div class="col-md-9">
+		<ul style="list-style-type:none" id="card-list">
+
+			<li ng-repeat="card in deck.cards"
+			    style="float:left;width:40%;padding:1%;">
+				<a ng-click="goEditor(card)" href="#" style="text-decoration:none">
+					<div class="panel panel-info">
+						<div class="panel-body">
+							{{ card.name }}
+						</div>
+					</div>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+</div>
