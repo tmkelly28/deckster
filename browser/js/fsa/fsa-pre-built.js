@@ -7,11 +7,6 @@
 
     var app = angular.module('fsaPreBuilt', []);
 
-    app.factory('Socket', function () {
-        if (!window.io) throw new Error('socket.io not found!');
-        return window.io(window.location.origin);
-    });
-
     // AUTH_EVENTS is used throughout our app to
     // broadcast and listen from and to the $rootScope
     // for important events about authentication flow.
@@ -91,6 +86,14 @@
                 .then(onSuccessfulLogin)
                 .catch(function () {
                     return $q.reject({ message: 'Invalid login credentials.' });
+                });
+        };
+
+        this.signup = function (credentials) {
+            return $http.post('/api/users', credentials)
+                .then(onSuccessfulLogin)
+                .catch(function () {
+                    return $q.reject({ message: 'Invalid signup credentials.' });
                 });
         };
 

@@ -1,17 +1,35 @@
-<nav class="navbar navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
-        </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+<div id="wrapper">
+    <div class="overlay"></div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a ui-sref="home">
+                   Deckster
+                </a>
+            </li>
+            <li>
+                <a ng-show="!user" ui-sref="login">Login</a>
+            </li>
+            <li>
+                <a ng-show="!user" ui-sref="signup">Signup</a>
+            </li>
+            <li>
+                <a ng-show="user" href="#">Create New Deck</a>
+            </li>
+            <li>
+                <span uib-dropdown on-toggle="toggled(open)">
+                    <a ng-show="user" href="#" uib-dropdown-toggle>
+                        Your Decks <span class="caret"></span>
+                    </a>
+                    <ul ng-show="user" class="uib-dropdown-menu">
+                        <li ng-repeat="deck in user.decks"><a href="#">{{ deck.name }}</a></li>
+                    </ul>
+                </span>
+            </li>
+            <li>
+                <a ng-show="user" ng-click="logout()" href="#">Logout</a>
             </li>
         </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
-    </div>
-</nav>
+    </nav>
+</div>

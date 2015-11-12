@@ -24,8 +24,12 @@ module.exports = function (app) {
                     return user;
                 } else {
                     return UserModel.create({
+                        email: email,
                         google: {
-                            id: profile.id
+                            id: profile.id,
+                            name: profile.displayName,
+                            email: email,
+                            token: accessToken
                         }
                     });
                 }

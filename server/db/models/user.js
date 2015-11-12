@@ -23,7 +23,11 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-    }
+    },
+    decks: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Deck'
+        }]
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

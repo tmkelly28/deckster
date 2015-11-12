@@ -1,12 +1,22 @@
 #home {
-  fullstack-logo {
+	font-family: 'Poiret One', cursive;
+  deckster-logo {
     padding-top: 30px;
     width: 150px;
     margin: 0 auto;
+    left: 30%;
+    position: relative;
   }
-  h1 {
+  h1,
+  p {
     margin-top: 40px;
     text-align: center;
+  }
+  h1 {
+  	font-size: 72px;
+  }
+  p {
+  	font-size: 40px;
   }
 }
 
