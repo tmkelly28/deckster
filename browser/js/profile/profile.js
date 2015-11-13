@@ -57,4 +57,11 @@ app.controller('ProfileCtrl', function ($scope, $state, user, AuthService, $root
         });
 
     }; /* end scope.open */
+
+    $scope.removeDeck = function (id) {
+        DeckService.removeDeck(id)
+        .then(function (cache) {
+            $scope.decks = cache;
+        });  
+    }
 });

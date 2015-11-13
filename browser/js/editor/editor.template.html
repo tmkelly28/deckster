@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-8">
-		<h1>{{ card.name }}</h1>
+		<h1 id="1">{{ card.name }}</h1>
 		<div id="svg-container" style="height:100%;width:100%"></div>
 	</div>
 	<div class="col-md-4" id="toolbar">
@@ -9,16 +9,33 @@
 			<a colorpicker="rgba" type="text" ng-model="edit.fill" href="#">Change Background Color</a>
 			<span class="btn" style="background-color:{{ edit.fill }};" ng-click="changeBgColor(edit.fill)">Apply</span>
 		</h4>
+
+		<hr />
+
 		<!-- Change Background Image -->
-		<h4>Add Background Image</h4>
-		<span class="btn" ng-click="">Upload & Apply</span>
+		<h4>
+			Add Background Image
+			
+			<button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select File</button>
+			<span class="btn" ng-click="upload()">Upload</span>
+		</h4>
+
+		<hr />
 
 		<!-- Change Border Size -->
 		<h4>
-			Change Border Size
+			<a ng-click="borderSizeCollapsed = !borderSizeCollapsed" href="#">
+				Change Border Size
+			</a>
 			<span class="btn" ng-click="changeBorderSize(edit.borderSize)">Apply</span>
 		</h4>
-		<input type="number" class="form-control" ng-model="edit.borderSize" />
+		<div uib-collapse="borderSizeCollapsed">
+			<input type="number" class="form-control" ng-model="edit.borderSize" />
+		</div>
+
+		<hr />
 
 		<!-- Change Border Color -->
 		<h4>
@@ -26,11 +43,37 @@
 			<span class="btn" style="background-color:{{ edit.strokeColor }};" ng-click="changeBorderColor(edit.strokeColor)">Apply</span>
 		</h4>
 
+		<hr />
+
 		<!-- Change Text Element -->
-		<h4>Add Text Element</h4>
+		<h4>
+			<a ng-click="textOptionsCollapsed = !textOptionsCollapsed" href="#">
+				Add Text Element
+			</a>
+			<span class="btn" ng-click="addTextElement(text)">Apply</span>
+		</h4>
+			<div uib-collapse="textOptionsCollapsed">
+				<label for="fontSelect">Font Style</label>
+				<select class="form-control" name="fontSelect" ng-model="text.fontStyle">
+					<option>Serif</option>
+					<option>Sans-serif</option>
+					<option>Cursive</option>
+					<option>Fantasy</option>
+					<option>Monospace</option>
+				</select>
+
+				<label for="fontSize">Font Size</label>
+				<input type="number" class="form-control" name="fontSelect" ng-model="text.fontSize" />
+
+				<label for="textContent">Content</label>
+				<textarea class="form-control" name="textContent" ng-model="text.textContent"></textarea>
+			</div>
+
+		<hr />
 
 		<!-- Save -->
 		<button class="btn btn-success" ng-click="save()">Save Changes</button><br /><br />
+		<span class="checkbox"><input type="checkbox" ng-model="templateCheck" /> Save as Template?</span>
 		<uib-alert type="success" ng-show="toggleAlert"> Nice! All saved!</uib-alert>
 
 	</div>

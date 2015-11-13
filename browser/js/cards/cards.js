@@ -11,9 +11,15 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CardsCtrl', function ($scope, deck, $state) {
+app.controller('CardsCtrl', function ($scope, deck, $state, DeckService) {
 	$scope.deck = deck;
 	$scope.goEditor = function (card) {
 		$state.go('editor', { cid: card._id });
 	}
+    $scope.removeCard = function (did, cid) {
+        DeckService.removeCard(did, cid)
+        .then(function (cache) {
+            $scope.deck = cache;
+        });  
+    }
 });

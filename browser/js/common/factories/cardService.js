@@ -10,11 +10,17 @@ app.factory('CardService', function ($http, Session, DeckService) {
 			});
 		},
 		saveChanges: function (id, changes) {
-			return $http.put('api/card/' + id, changes)
+			return $http.put('/api/card/' + id, changes)
 			.then(function (res) {
 				currentCard = res.data;
 				return currentCard;
 			});
+		},
+		fetchTemplates: function () {
+			return $http.get('/api/card/templates')
+			.then(function (res) {
+				return res.data;
+			})
 		}
 	};
 

@@ -49,17 +49,16 @@ router.put("/:id", function (req, res, next) {
 	.then(null, next);
 });
 
-// DELETE a given card by id (responds with a deck)
+// DELETE a given card by id
 router.delete("/:id", function (req, res, next) {
-	var cardId = req.card._id;
+	var _card = req.card;
 
 	req.card.remove()
 	.then(function () {
-		req.deck.cards = req.deck.cards.filter(card => card._id !== cardId);
-		return req.deck.save();
+		return Deck.findByIdAndUpdate(req.deck._id, { $pull: { 'cards': _card._id } });
 	})
 	.then(function (deck) {
-		res.status(200).json(deck);
+		res.status(200).json(_card);
 	})
 	.then(null,next);
 });

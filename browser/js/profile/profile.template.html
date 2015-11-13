@@ -7,9 +7,10 @@
 
 			<li ng-repeat="deck in decks"
 			    style="float:left;width:40%;padding:1%;">
-				<a ng-click="open(deck)" href="#" style="text-decoration:none">
 					<div class="panel panel-info">
 						<div class="panel-heading">
+							<a href="#" class="close" ng-click="removeDeck(deck._id)">x</a>
+							<a ng-click="open(deck)" href="#" style="text-decoration:none">
 							{{ deck.name }}
 						</div>
 						<div class="panel-body">

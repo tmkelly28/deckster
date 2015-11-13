@@ -7,9 +7,10 @@
 
 			<li ng-repeat="card in deck.cards"
 			    style="float:left;width:40%;padding:1%;">
-				<a ng-click="goEditor(card)" href="#" style="text-decoration:none">
 					<div class="panel panel-info">
 						<div class="panel-body">
+						<a href="#" class="close" ng-click="removeCard(deck._id, card._id)">x</a>
+						<a ng-click="goEditor(card)" href="#" style="text-decoration:none">
 							{{ card.name }}
 						</div>
 					</div>

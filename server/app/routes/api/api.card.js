@@ -4,6 +4,15 @@ var _ = require('lodash');
 var passport = require('passport');
 var Card = mongoose.model('Card');
 
+
+router.get('/templates', function (req, res, next) {
+	Card.getTemplatesForUser(req.user._id)
+	.then(function (templates) {
+		res.status(200).json(templates);
+	})
+	.then(null, next);
+});
+
 // param middleware - sets the requested card as req.card
 router.param("id", function (req, res, next, id) {
 	Card.findById(id)

@@ -18,9 +18,9 @@ router.post("/", function (req, res, next) {
 	User.create(req.body)
 	.then(function (user) {
 		req.logIn(user, function (loginErr) {
-			if (loginErr) reject(loginErr);
+			if (loginErr) res.status(500).send(loginErr);
 			res.status(201).send({
-            	user: _.omit(theUser.toJSON(), ['password', 'salt'])
+            	user: _.omit(user.toJSON(), ['password', 'salt'])
        		});
 		})
 	})
@@ -48,7 +48,7 @@ router.put("/:id", function (req, res, next) {
 	req.requestedUser.set(req.body);
 	req.requestedUser.save()
 	.then(function(user){
-		res.status(201).json(user);
+		res.status(200).json(user);
 	})
 	.then(null, next);
 });
@@ -57,7 +57,7 @@ router.put("/:id", function (req, res, next) {
 router.delete("/:id", function (req, res, next) {
 	req.requestedUser.remove()
 	.then(function (user){
-		res.status(204).json(user);
+		res.status(200).json(user);
 	})
 	.then(null,next);
 });
