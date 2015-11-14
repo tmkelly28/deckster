@@ -16,6 +16,8 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     $scope.card = card;
     $scope.toggleAlert = false;
     $scope.borderSizeCollapsed = true;
+    $scope.bgImageCollapsed = true;
+    $scope.imageCollapsed = true;
     $scope.textOptionsCollapsed = true;
     $scope.templateCheck = false;
 
@@ -31,8 +33,12 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     function snapConfiguration () {
         paper = Snap('#svg1');
         var text = paper.selectAll('text');
-        text.items.forEach(function (i) {
-           i.drag();
+        var imgs = paper.selectAll('image');
+        text.items.forEach(function (t) {
+           t.drag();
+        });
+        imgs.items.forEach(function (i) {
+            i.drag();
         });
     }
 
@@ -71,7 +77,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         })
     }
 
-    $scope.uploadFiles = function(file, errFiles) {
+    $scope.uploadFiles = function(file, errFiles, zIndex) {
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];
 
@@ -89,7 +95,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
 
             file.upload.then(function (response) {
                 var imageUrl = response.data.imageUrl;
-                GraphicService.setImageBackground(paper, imageUrl);
+                GraphicService.setImageBackground(paper, imageUrl, zIndex);
                 $timeout(function () {
                     file.result = response.data;
                 });

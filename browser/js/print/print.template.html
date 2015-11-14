@@ -1,1 +1,13 @@
-print.template.html
+<div class="row">
+	<div class="col-md-12">
+		<h1>Are you ready for this? Get ready to export {{ deck.name }}!</h1>
+			<button class="btn btn-success" ng-click="print()">Print</button>
+			<button class="btn btn-warning" ng-click="back()">Hold up! I just noticed something!</button>
+		<!-- <canvas id="canvas" width="1000px" height="800px"></canvas> -->
+		<div id="print-container">
+			<ul style="list-style-type:none">
+				<li style="float:left;padding:5px" ng-repeat="card in deck.cards"></li>
+			</ul>
+		</div>
+	</div>
+</div>

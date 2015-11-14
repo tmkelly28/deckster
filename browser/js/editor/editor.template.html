@@ -1,7 +1,11 @@
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-4">
 		<h1 id="1">{{ card.name }}</h1>
 		<div id="svg-container" style="height:100%;width:100%"></div>
+	</div>
+	<div class="col-md-4">
+		<uib-alert type="success" ng-show="toggleAlert">Nice! All saved!</uib-alert>
+		<uib-alert type="danger" ng-show="errorMsg">{{ errorMsg }}</uib-alert>
 	</div>
 	<div class="col-md-4" id="toolbar">
 		<!-- Change Background Color -->
@@ -14,12 +18,30 @@
 
 		<!-- Change Background Image -->
 		<h4>
-			Add Background Image
+			<a ng-click="bgImageCollapsed = !bgImageCollapsed" href="#">
+				Add Background Image
+			</a>
 		</h4>
-			<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+		<div uib-collapse="bgImageCollapsed">
+			<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles, 'back')"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
       Select File</span>
+      		<span class="btn">Select Preset</span>
+      	</div>
+		<hr />
 
+		<!-- Add Image -->
+		<h4>
+			<a ng-click="imageCollapsed = !imageCollapsed" href="#">
+				Add Image Sprite
+			</a>
+		</h4>
+		<div uib-collapse="imageCollapsed">
+			<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles, 'front')"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
+      Select File</span>
+      		<span class="btn">Select Preset</span>
+      	</div>
 		<hr />
 
 		<!-- Change Border Size -->
@@ -51,20 +73,35 @@
 			<span class="btn" ng-click="addTextElement(text)">Apply</span>
 		</h4>
 			<div uib-collapse="textOptionsCollapsed">
-				<label for="fontSelect">Font Style</label>
-				<select class="form-control" name="fontSelect" ng-model="text.fontStyle">
-					<option>Serif</option>
-					<option>Sans-serif</option>
-					<option>Cursive</option>
-					<option>Fantasy</option>
-					<option>Monospace</option>
-				</select>
+				<div class="form-group">
+					<label for="fontSelect">Font Style</label>
+					<select class="form-control" name="fontSelect" ng-model="text.fontStyle">
+						<option>Serif</option>
+						<option>Sans-serif</option>
+						<option>Cursive</option>
+						<option>Fantasy</option>
+						<option>Monospace</option>
+					</select>
+				</div>
 
-				<label for="fontSize">Font Size</label>
-				<input type="number" class="form-control" name="fontSelect" ng-model="text.fontSize" />
+				<div class="form-group">
+					<label for="fontSize">Font Size</label>
+					<input type="number" class="form-control" name="fontSelect" ng-model="text.fontSize" />
+				</div>
 
-				<label for="textContent">Content</label>
-				<textarea class="form-control" name="textContent" ng-model="text.textContent"></textarea>
+				<div class="form-group">
+					<label for="fontColor">
+						<a colorpicker="rgba" type="text" ng-model="text.fontColor" href="#">
+							Font Color
+						</a>
+					</label>
+					<span class="btn" style="background-color:{{ text.fontColor }};"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="textContent">Content</label>
+					<textarea class="form-control" name="textContent" ng-model="text.textContent"></textarea>
+				</div>
 			</div>
 
 		<hr />
@@ -72,8 +109,6 @@
 		<!-- Save -->
 		<span class="btn btn-success" ng-click="save()">Save Changes</span>
 		<span ng-show="!card.isTemplate"><input type="checkbox" ng-model="templateCheck" style="display:inline"> Save as Template?</span>
-		<br /><br />
-		<uib-alert type="success" ng-show="toggleAlert"> Nice! All saved!</uib-alert>
 
 	</div>
 </div>
