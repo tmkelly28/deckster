@@ -15,12 +15,10 @@
 		<!-- Change Background Image -->
 		<h4>
 			Add Background Image
-			
-			<button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-      Select File</button>
-			<span class="btn" ng-click="upload()">Upload</span>
 		</h4>
+			<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select File</span>
 
 		<hr />
 
@@ -72,8 +70,9 @@
 		<hr />
 
 		<!-- Save -->
-		<button class="btn btn-success" ng-click="save()">Save Changes</button><br /><br />
-		<span class="checkbox"><input type="checkbox" ng-model="templateCheck" /> Save as Template?</span>
+		<span class="btn btn-success" ng-click="save()">Save Changes</span>
+		<span ng-show="!card.isTemplate"><input type="checkbox" ng-model="templateCheck" style="display:inline"> Save as Template?</span>
+		<br /><br />
 		<uib-alert type="success" ng-show="toggleAlert"> Nice! All saved!</uib-alert>
 
 	</div>

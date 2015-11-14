@@ -16,6 +16,9 @@ app.controller('CardsCtrl', function ($scope, deck, $state, DeckService) {
 	$scope.goEditor = function (card) {
 		$state.go('editor', { cid: card._id });
 	}
+    $scope.goAddCard = function () {
+        $state.go('addcard', {did: deck._id})
+    }
     $scope.removeCard = function (did, cid) {
         DeckService.removeCard(did, cid)
         .then(function (cache) {

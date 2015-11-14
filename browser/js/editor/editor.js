@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, GraphicService, $rootScope, Upload) {
+app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, GraphicService, $rootScope, Upload, Session) {
     
     $scope.card = card;
     $scope.toggleAlert = false;
@@ -56,14 +56,12 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         textEl = GraphicService.configure(textEl, text);
         paper.append(textEl);
     }
-    $scope.upload = function (img) {
-        console.log(paper.select('rect'))
-    }
 
     /* parse DOM svg to string for storage in db */
     $scope.save = function () {
         var str = $('#svg-container');
-        CardService.saveChanges($scope.card._id, { svg: str[0].innerHTML, isTemplate: $scope.templateCheck })
+        var templateStatus = $scope.card.isTemplate || $scope.templateCheck;
+        CardService.saveChanges($scope.card._id, { svg: str[0].innerHTML, isTemplate: templateStatus, user: Session.user._id })
         .then(function (card) {
             $scope.card = card;
             $scope.toggleAlert = true;

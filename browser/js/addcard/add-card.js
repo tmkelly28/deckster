@@ -14,13 +14,17 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('AddCardCtrl', function ($scope, deck, templates, DeckService, $state) {
+app.controller('AddCardCtrl', function ($scope, deck, templates, DeckService, $state, Session) {
 	$scope.deck = deck;
     $scope.templates = templates;
 	$scope.submit = function () {
+        $scope.card.user = Session.user._id;
         DeckService.addCard($scope.deck._id, $scope.card)
         .then(function (card) {
             $state.go('editor', {cid: card._id})
         });
+    }
+    $scope.back = function () {
+        $state.go('profile', Session.user._id);
     }
 });

@@ -48,6 +48,7 @@ var templates = [
 schema.statics.getTemplatesForUser = function (uid) {
     return this.model('Card').find({user:uid}).exec()
     .then(function (cards) {
+        console.log(cards);
         cards = cards.filter(card => card.isTemplate === true);
         return cards.concat(templates);
     })
