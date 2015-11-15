@@ -1,0 +1,16 @@
+<div>
+	<span class="btn btn-success" ng-click="save()">
+		<span class="glyphicon glyphicon-floppy-saved"></span> 
+		 Save Changes
+	</span>
+	<span ng-show="!card.isTemplate"><input type="checkbox" ng-model="templateCheck" style="display:inline"> Save as Template?</span>
+</div>
+<hr />
+<div>
+	<span class="btn btn-warning" ng-click="back()"><span class="glyphicon glyphicon-backward"</span> Back to Deck</span>
+</div>
+<br /><br />
+<div>
+	<uib-alert type="success" ng-show="toggleSaveAlert">Nice! All saved!</uib-alert>
+	<uib-alert type="danger" ng-show="errorMsg && toggleErrorAlert">{{ errorMsg }}</uib-alert>
+</div>

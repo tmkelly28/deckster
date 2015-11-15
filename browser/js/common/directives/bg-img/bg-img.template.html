@@ -1,0 +1,20 @@
+<h4>
+	<a ng-click="bgImageCollapsed = !bgImageCollapsed" href="#">
+		Add Background Image
+	</a>
+</h4>
+<div uib-collapse="bgImageCollapsed">
+	<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles, 'back')"
+  accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
+Select File</span>
+		<span class="btn" ng-click="bgipCollapsed = !bgipCollapsed">Select Preset</span>
+	<div uib-collapse="bgipCollapsed">
+		<div class="form-group">
+			<select class="form-control" name="bgPreset" ng-model="edit.imgPreset">
+				<option ng-repeat="img in presetBackgroundImages" value="{{ img.url }}">{{ img.name }}</option>
+			</select>
+			<span class="btn" ng-click="selectImage(edit.imgPreset, 'back')">Select</span>
+		</div>
+	</div>
+	</div>
+<hr />

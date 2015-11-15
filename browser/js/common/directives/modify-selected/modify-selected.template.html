@@ -1,0 +1,21 @@
+<h4 ng-show="!!selectedEl">
+	<a ng-click="selectCollapsed = !selectCollapsed" href="#">
+		Modify Selected
+	</a>
+</h4>
+<div uib-collapse="selectCollapsed" ng-show="!!selectedEl">
+	<div>
+		<span class="btn btn-danger" ng-click="removeSelected()">Remove Selected</span>
+		<span class="btn btn-info" ng-click="resizeSelected(resize)">Resize Selected</span>
+	</div>
+	<div class="form-group">
+		<label for="height">Height:</label>
+		<input type="number" name="height" ng-model="resize.height" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label for="height">Width:</label>
+		<input type="number" name="width" ng-model="resize.width" class="form-control" />
+	</div>
+</div>
+
+<hr ng-show="!!selectedEl" />

@@ -1,0 +1,38 @@
+<h4>
+	<a ng-click="textOptionsCollapsed = !textOptionsCollapsed" href="#">
+		Add Text Element
+	</a>
+	<span class="btn" ng-click="addTextElement(text)">Apply</span>
+</h4>
+<div uib-collapse="textOptionsCollapsed">
+	<div class="form-group">
+		<label for="fontSelect">Font Style</label>
+		<select class="form-control" name="fontSelect" ng-model="text.fontStyle">
+			<option>Serif</option>
+			<option>Sans-serif</option>
+			<option>Cursive</option>
+			<option>Fantasy</option>
+			<option>Monospace</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="fontSize">Font Size</label>
+		<input type="number" class="form-control" name="fontSelect" ng-model="text.fontSize" />
+	</div>
+
+	<div class="form-group">
+		<label for="fontColor">
+			<a colorpicker="rgba" type="text" ng-model="text.fontColor" href="#">
+				Font Color
+			</a>
+		</label>
+		<span class="btn" style="background-color:{{ text.fontColor }};"></span>
+	</div>
+
+	<div class="form-group">
+		<label for="textContent">Content</label>
+		<textarea class="form-control" name="textContent" ng-model="text.textContent"></textarea>
+	</div>
+</div>
+<hr />
