@@ -19,9 +19,10 @@ app.controller('AddCardCtrl', function ($scope, deck, templates, DeckService, $s
     $scope.templates = templates;
 	$scope.submit = function () {
         $scope.card.user = Session.user._id;
+        $scope.card.deck = $scope.deck._id;
         DeckService.addCard($scope.deck._id, $scope.card)
         .then(function (card) {
-            $state.go('editor', {cid: card._id})
+            $state.go('editor', {cid: card._id});
         });
     }
     $scope.back = function () {

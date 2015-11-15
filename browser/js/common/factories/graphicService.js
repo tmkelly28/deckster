@@ -18,12 +18,39 @@ app.factory('GraphicService', function () {
 			if (options.fontColor) el.attr({'stroke': options.fontColor});
 			return el;
 		},
-		setImageBackground: function (paper, url, zIndex) {
+		setImageBackground: function (paper, url, config) {
 			var image = paper.image(url);
-			image.drag();
+			if (config !== 'frame') image.drag();
+			if (config === 'frame') {
+				image.attr({
+					transform: 'matrix(1,0,0,1,37,41)'
+				});
+				setTimeout(function () {
+					Snap.select('image').attr({
+						width: 265,
+						height: 265
+					});
+				}, 1000);
+			}
+
+			// append or prepend, depending on configuration
 			var g = paper.select('g');
-			if (zIndex === 'back') g.prepend(image);
+			if (config === 'back') g.prepend(image);
 			else g.append(image);
+
+			return image;
+		},
+		addClickEvent: function (el, fn) {
+			el.click(fn);
+		},
+		resizeSelected: function (el, options) {
+			el.attr({
+				width: options.width,
+				height: options.height
+			})
+		},
+		removeSelected: function (el) {
+			el.remove();
 		}
 	};
 });

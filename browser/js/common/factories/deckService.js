@@ -31,6 +31,9 @@ app.factory('DeckService', function ($http, Session) {
 		})
 	}
 	service.addCard = function (deckId, card) {
+		var template = JSON.parse(card.svg);
+		card.svg = template.svg;
+		card.templateOrigin = template.templateOrigin;
 		return $http.post('/api/users/' + Session.user._id + '/decks/' + deckId + '/cards', card)
 		.then(toData)
 	}

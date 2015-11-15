@@ -7,9 +7,9 @@
 		<label for="templateSelect">Select a card template to get this started!</label>
 		<select name="templateSelect" class="form-control" ng-model="card.svg" >
 			<option ng-repeat="template in templates"
-			        value="{{template.svg}}">{{ template.name }}</option>
+			        value="{{template}}">{{ template.name }}</option>
 		</select>
 	</div>
-	<button ng-click="submit(deck._id, card)" class="btn btn-success">Let's Go!</button>
-	<button ng-click="back()" class="btn btn-warning">Wait a sec!</button>
+	<button ng-click="submit(deck._id, card)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Let's Go!</button>
+	<button ng-click="back()" class="btn btn-warning"><span class="glyphicon glyphicon-backward"></span> Wait a sec!</button>
 </form>

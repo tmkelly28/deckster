@@ -20,10 +20,9 @@ body {
   margin: 0 auto;
 }
 
-#toolbar {
+.toolbar {
   height:100%;
-  position:absolute;
-  right:0;
+  overflow: scroll;
 
   a {
     color: #333333;

@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CardsCtrl', function ($scope, deck, $state, DeckService) {
+app.controller('CardsCtrl', function ($scope, deck, $state, DeckService, Session) {
 	$scope.deck = deck;
 	$scope.goEditor = function (card) {
 		$state.go('editor', { cid: card._id });
@@ -24,5 +24,8 @@ app.controller('CardsCtrl', function ($scope, deck, $state, DeckService) {
         .then(function (cache) {
             $scope.deck = cache;
         });  
+    }
+    $scope.back = function () {
+        $state.go('profile', {uid: Session.user._id})
     }
 });

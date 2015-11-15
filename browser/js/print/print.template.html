@@ -1,9 +1,8 @@
 <div class="row">
 	<div class="col-md-12">
 		<h1>Are you ready for this? Get ready to export {{ deck.name }}!</h1>
-			<button class="btn btn-success" ng-click="print()">Print</button>
-			<button class="btn btn-warning" ng-click="back()">Hold up! I just noticed something!</button>
-		<!-- <canvas id="canvas" width="1000px" height="800px"></canvas> -->
+			<button class="btn btn-success" ng-click="print()"><span class="glyphicon glyphicon-print"></span> Print</button>
+			<button class="btn btn-warning" ng-click="back()"><span class="glyphicon glyphicon-backward"></span> Hold up! I just noticed something!</button>
 		<div id="print-container">
 			<ul style="list-style-type:none">
 				<li style="float:left;padding:5px" ng-repeat="card in deck.cards"></li>

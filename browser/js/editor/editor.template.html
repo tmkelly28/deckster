@@ -3,11 +3,9 @@
 		<h1 id="1">{{ card.name }}</h1>
 		<div id="svg-container" style="height:100%;width:100%"></div>
 	</div>
-	<div class="col-md-4">
-		<uib-alert type="success" ng-show="toggleAlert">Nice! All saved!</uib-alert>
-		<uib-alert type="danger" ng-show="errorMsg">{{ errorMsg }}</uib-alert>
-	</div>
-	<div class="col-md-4" id="toolbar">
+
+	<!-- COLUMN 1 -->
+	<div class="col-md-4 toolbar">
 		<!-- Change Background Color -->
 		<h4>
 			<a colorpicker="rgba" type="text" ng-model="edit.fill" href="#">Change Background Color</a>
@@ -15,6 +13,14 @@
 		</h4>
 
 		<hr />
+
+		<!-- Change Frame Background Color -->
+		<h4 ng-show="hasFrame">
+			<a colorpicker="rgba" type="text" ng-model="edit.ffill" href="#">Change Frame Background Color</a>
+			<span class="btn" style="background-color:{{ edit.ffill }};" ng-click="changeFrameBgColor(edit.ffill)">Apply</span>
+		</h4>
+
+		<hr ng-show="hasFrame" />
 
 		<!-- Change Background Image -->
 		<h4>
@@ -26,14 +32,35 @@
 			<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles, 'back')"
           accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
       Select File</span>
-      		<span class="btn">Select Preset</span>
+      		<span class="btn" ng-click="bgipCollapsed = !bgipCollapsed">Select Preset</span>
+			<div uib-collapse="bgipCollapsed">
+				<div class="form-group">
+					<select class="form-control" name="bgPreset" ng-model="edit.imgPreset">
+						<option ng-repeat="img in presetBackgroundImages" value="{{ img.url }}">{{ img.name }}</option>
+					</select>
+					<span class="btn" ng-click="selectImage(edit.imgPreset, 'back')">Select</span>
+				</div>
+			</div>
       	</div>
 		<hr />
+
+		<!-- Change Frame Background Image -->
+		<h4 ng-show="hasFrame">
+			<a ng-click="fbgImageCollapsed = !fbgImageCollapsed" href="#">
+				Add Frame Background Image
+			</a>
+		</h4>
+		<div uib-collapse="fbgImageCollapsed">
+			<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles, 'frame')"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
+      Select File</span>
+      	</div>
+		<hr / ng-show="hasFrame">
 
 		<!-- Add Image -->
 		<h4>
 			<a ng-click="imageCollapsed = !imageCollapsed" href="#">
-				Add Image Sprite
+				Add Image
 			</a>
 		</h4>
 		<div uib-collapse="imageCollapsed">
@@ -43,6 +70,50 @@
       		<span class="btn">Select Preset</span>
       	</div>
 		<hr />
+		<h4 ng-show="!!selectedEl">
+			<a ng-click="selectCollapsed = !selectCollapsed" href="#">
+				Modify Selected
+			</a>
+		</h4>
+		<div uib-collapse="selectCollapsed" ng-show="!!selectedEl">
+			<div>
+				<span class="btn btn-danger" ng-click="removeSelected()">Remove Selected</span>
+				<span class="btn btn-info" ng-click="resizeSelected(resize)">Resize Selected</span>
+			</div>
+			<div class="form-group">
+				<label for="height">Height:</label>
+				<input type="number" name="height" ng-model="resize.height" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="height">Width:</label>
+				<input type="number" name="width" ng-model="resize.width" class="form-control" />
+			</div>
+		</div>
+
+		<hr ng-show="!!selectedEl" />
+
+		<!-- Save -->
+		<div>
+			<span class="btn btn-success" ng-click="save()">
+				<span class="glyphicon glyphicon-floppy-saved"></span> 
+				 Save Changes
+			</span>
+			<span ng-show="!card.isTemplate"><input type="checkbox" ng-model="templateCheck" style="display:inline"> Save as Template?</span>
+		</div>
+		<hr />
+		<div>
+			<span class="btn btn-warning" ng-click="back()"><span class="glyphicon glyphicon-backward"</span> Back to Deck</span>
+		</div>
+		<br /><br />
+		<div>
+			<uib-alert type="success" ng-show="toggleSaveAlert">Nice! All saved!</uib-alert>
+			<uib-alert type="danger" ng-show="errorMsg && toggleErrorAlert">{{ errorMsg }}</uib-alert>
+		</div>
+
+	</div>
+
+	<!-- COLUMN 2 -->
+	<div class="col-md-4 toolbar">
 
 		<!-- Change Border Size -->
 		<h4>
@@ -57,6 +128,19 @@
 
 		<hr />
 
+		<!-- Change Frame Border Size -->
+		<h4 ng-show="hasFrame">
+			<a ng-click="fborderSizeCollapsed = !fborderSizeCollapsed" ng-show="hasFrame" href="#">
+				Change Frame Border Size
+			</a>
+			<span class="btn" ng-click="changeFrameBorderSize(edit.fborderSize)">Apply</span>
+		</h4>
+		<div uib-collapse="fborderSizeCollapsed">
+			<input type="number" class="form-control" ng-model="edit.fborderSize" />
+		</div>
+
+		<hr ng-show="hasFrame" />
+
 		<!-- Change Border Color -->
 		<h4>
 			<a colorpicker="rgba" type="text" ng-model="edit.strokeColor" href="#">Change Border Color</a>
@@ -64,6 +148,14 @@
 		</h4>
 
 		<hr />
+
+		<!-- Change Frame Border Color -->
+		<h4 ng-show="hasFrame">
+			<a colorpicker="rgba" type="text" ng-model="edit.fstrokeColor" href="#">Change Frame Border Color</a>
+			<span class="btn" style="background-color:{{ edit.fstrokeColor }};" ng-click="changeFrameBorderColor(edit.fstrokeColor)">Apply</span>
+		</h4>
+
+		<hr ng-show="hasFrame" />
 
 		<!-- Change Text Element -->
 		<h4>
@@ -105,10 +197,5 @@
 			</div>
 
 		<hr />
-
-		<!-- Save -->
-		<span class="btn btn-success" ng-click="save()">Save Changes</span>
-		<span ng-show="!card.isTemplate"><input type="checkbox" ng-model="templateCheck" style="display:inline"> Save as Template?</span>
-
 	</div>
 </div>
