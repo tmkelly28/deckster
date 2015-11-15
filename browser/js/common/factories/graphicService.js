@@ -10,7 +10,7 @@ app.factory('GraphicService', function () {
 			return paper.text(100, 100, 'default');
 		},
 		configure: function (el, options) {
-			el.drag();
+			if(!options.isEdit) el.drag();
 			if (options.fontStyle) el.attr({'font-family': options.fontStyle});
 			if (options.fontSize) el.attr({'font-size': options.fontSize});
 			if (options.fontColor) el.attr({'fill': options.fontColor});

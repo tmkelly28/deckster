@@ -114,6 +114,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         $scope.save();
     }
     $scope.editTextElement = function (el, edit) {
+        edit.isEdit = true;
         el = GraphicService.configure(el, edit);
         $scope.save();
     }
