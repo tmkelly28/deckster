@@ -1,5 +1,4 @@
 <h4 ng-show="hasFrame">
-	<a colorpicker="rgba" type="text" ng-model="edit.fstrokeColor" href="#">Change Frame Border Color</a>
-	<span class="btn" style="background-color:{{ edit.fstrokeColor }};" ng-click="changeFrameBorderColor(edit.fstrokeColor)">Apply</span>
+	<a colorpicker="rgba" type="text" ng-model="edit.fstrokeColor" href="#" ng-change="changeFrameBorderColor(edit.fstrokeColor)">Change Frame Border Color</a>
 </h4>
 <hr ng-show="hasFrame" />

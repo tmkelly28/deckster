@@ -1,6 +1,5 @@
 <h4 ng-show="hasFrame">
-	<a colorpicker="rgba" type="text" ng-model="edit.ffill" href="#">Change Frame Background Color</a>
-	<span class="btn" style="background-color:{{ edit.ffill }};" ng-click="changeFrameBgColor(edit.ffill)">Apply</span>
+	<a colorpicker="rgba" type="text" ng-model="edit.ffill" href="#" ng-change="changeFrameBgColor(edit.ffill)">Change Frame Background Color</a>
 </h4>
 
 <hr ng-show="hasFrame" />

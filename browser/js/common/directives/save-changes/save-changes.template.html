@@ -1,9 +1,8 @@
 <div>
-	<span class="btn btn-success" ng-click="save()">
+	<span class="btn btn-success" ng-click="saveAsTemplate()">
 		<span class="glyphicon glyphicon-floppy-saved"></span> 
-		 Save Changes
+		 Save As Template
 	</span>
-	<span ng-show="!card.isTemplate"><input type="checkbox" ng-model="templateCheck" style="display:inline"> Save as Template?</span>
 </div>
 <hr />
 <div>
@@ -11,6 +10,6 @@
 </div>
 <br /><br />
 <div>
-	<uib-alert type="success" ng-show="toggleSaveAlert">Nice! All saved!</uib-alert>
+	<uib-alert type="success" ng-show="toggleSaveAlert">Cool! This card is now available as a template!</uib-alert>
 	<uib-alert type="danger" ng-show="errorMsg && toggleErrorAlert">{{ errorMsg }}</uib-alert>
 </div>

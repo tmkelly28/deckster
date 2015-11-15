@@ -44,10 +44,8 @@ app.factory('GraphicService', function () {
 			el.click(fn);
 		},
 		resizeSelected: function (el, options) {
-			el.attr({
-				width: options.width,
-				height: options.height
-			})
+			if (options.width) el.attr({width: options.width});
+			if (options.height) el.attr({height: options.height});
 		},
 		removeSelected: function (el) {
 			el.remove();

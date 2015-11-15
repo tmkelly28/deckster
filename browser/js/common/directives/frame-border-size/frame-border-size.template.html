@@ -2,10 +2,12 @@
 	<a ng-click="fborderSizeCollapsed = !fborderSizeCollapsed" ng-show="hasFrame" href="#">
 		Change Frame Border Size
 	</a>
-	<span class="btn" ng-click="changeFrameBorderSize(edit.fborderSize)">Apply</span>
 </h4>
 <div uib-collapse="fborderSizeCollapsed">
-	<input type="number" class="form-control" ng-model="edit.fborderSize" />
+	<input type="number" 
+	       class="form-control" 
+	       ng-model="edit.fborderSize" 
+	       ng-change="changeFrameBorderSize(edit.fborderSize)" />
 </div>
 
 <hr ng-show="hasFrame" />

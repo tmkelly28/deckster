@@ -15,6 +15,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     
     $scope.card = card;
     $scope.selectedEl = null;
+    $scope.selectedElType = null;
     $scope.toggleSaveAlert = false;
     $scope.toggleErrorAlert = false;
     $scope.borderSizeCollapsed = true;
@@ -37,12 +38,18 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     ];
     $scope.presetImages = [];
 
-    $scope.back = function () {
-        $state.go('cards', {did: $scope.card.deck});
-    }
 
     /* declare the paper (Snap representation of the svg) */
     var paper;
+
+    /* declare cb function for click event handler */
+    function setSelected () {
+        console.log(this);
+        $scope.selectedEl = this;
+        $scope.selectedElType = this.type;
+        $rootScope.$digest();
+        $scope.save();
+    }
 
     /* Move Snap configuration to the event queue to handle the async loading of SVG */
     $(document).ready(function(){
@@ -64,13 +71,6 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         });
     }
 
-    function setSelected () {
-        console.log(this);
-        $scope.selectedEl = this;
-        $rootScope.$digest();
-    }
-
-
     /* parse string to DOM svg */
     var svgContainer = document.getElementById('svg-container');
     svgContainer.appendChild(GraphicService.parseSvg($scope.card.svg));
@@ -78,27 +78,38 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     /* Methods for applying edits to SVG in DOM */
     $scope.changeBgColor = function (color) {
         $('#svg_1').attr('fill', color);
+        $scope.save();
     }
     $scope.changeBorderColor = function (color) {
         $('#svg_1').attr('stroke', color);
+        $scope.save();
     }
     $scope.changeBorderSize = function (size) {
         $('#svg_1').attr('stroke-width', size);
+        $scope.save();
     }
     $scope.changeFrameBgColor = function (color) {
         $('#svg_2').attr('fill', color);
+        $scope.save();
     }
     $scope.changeFrameBorderColor = function (color) {
         $('#svg_2').attr('stroke', color);
+        $scope.save();
     }
     $scope.changeFrameBorderSize = function (size) {
         $('#svg_2').attr('stroke-width', size);
+        $scope.save();
     }
     $scope.addTextElement = function (text) {
         var textEl = GraphicService.defaultTextEl(paper);
         textEl = GraphicService.configure(textEl, text);
         GraphicService.addClickEvent(textEl, setSelected);
         paper.append(textEl);
+        $scope.save();
+    }
+    $scope.editTextElement = function (el, edit) {
+        el = GraphicService.configure(el, edit);
+        $scope.save();
     }
 
     /* parse DOM svg to string for storage in db */
@@ -108,13 +119,18 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         CardService.saveChanges($scope.card._id, { svg: str[0].innerHTML, isTemplate: templateStatus, user: Session.user._id })
         .then(function (card) {
             $scope.card = card;
-            $scope.toggleSaveAlert = true;
-            $timeout(function () {
-                $scope.toggleSaveAlert = false;
-            }, 1000)
-        })
+        });
+    }
+    $scope.saveAsTemplate = function () {
+        $scope.templateCheck = true;
+        $scope.toggleSaveAlert = true;
+        $timeout(function () {
+            $scope.toggleSaveAlert = false;
+        }, 2000)
+        $scope.save();
     }
 
+    /* handle file uploads */
     $scope.uploadFiles = function(file, errFiles, config) {
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];
@@ -135,15 +151,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
                 var imageUrl = response.data.imageUrl;
                 var image = GraphicService.setImageBackground(paper, imageUrl, config);
                 GraphicService.addClickEvent(image, setSelected);
-                $timeout(function () {
-                    file.result = response.data;
-                });
-            }, function (response) {
-                if (response.status > 0)
-                    $scope.errorMsg = response.status + ': ' + response.data;
-            }, function (evt) {
-                file.progress = Math.min(100, parseInt(100.0 * 
-                                         evt.loaded / evt.total));
+                $scope.save();
             });
         } else {
             $scope.toggleErrorAlert = true;
@@ -154,6 +162,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         } 
     }
 
+    /* methods for handling element selection */
     $scope.selectImage = function (imageUrl, config) {
         var image = GraphicService.setImageBackground(paper, imageUrl, config);
         GraphicService.addClickEvent(image, setSelected);
@@ -162,12 +171,18 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     $scope.removeSelected = function () {
         GraphicService.removeSelected($scope.selectedEl);
         $scope.selectedEl = null;
+        $scope.save();
     }
 
     $scope.resizeSelected = function (options) {
         GraphicService.resizeSelected($scope.selectedEl, options);
+        $scope.save();
     }
 
+    /* navigation methods */
+    $scope.back = function () {
+        $state.go('cards', {did: $scope.card.deck});
+    }
 
 
 });

@@ -2,10 +2,9 @@
 	<a ng-click="borderSizeCollapsed = !borderSizeCollapsed" href="#">
 		Change Border Size
 	</a>
-	<span class="btn" ng-click="changeBorderSize(edit.borderSize)">Apply</span>
 </h4>
 <div uib-collapse="borderSizeCollapsed">
-	<input type="number" class="form-control" ng-model="edit.borderSize" />
+	<input type="number" class="form-control" ng-model="edit.borderSize" ng-change="changeBorderSize(edit.borderSize)" />
 </div>
 
 <hr />

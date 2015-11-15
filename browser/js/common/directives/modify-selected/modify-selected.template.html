@@ -1,20 +1,80 @@
 <h4 ng-show="!!selectedEl">
 	<a ng-click="selectCollapsed = !selectCollapsed" href="#">
-		Modify Selected
+		Modify Selected {{ selectedElType[0].toUpperCase() + selectedElType.slice(1) }}
 	</a>
 </h4>
-<div uib-collapse="selectCollapsed" ng-show="!!selectedEl">
+
+<div uib-collapse="selectCollapsed" ng-show="!!selectedEl && selectedEl.type === 'image'">
 	<div>
 		<span class="btn btn-danger" ng-click="removeSelected()">Remove Selected</span>
-		<span class="btn btn-info" ng-click="resizeSelected(resize)">Resize Selected</span>
 	</div>
 	<div class="form-group">
 		<label for="height">Height:</label>
-		<input type="number" name="height" ng-model="resize.height" class="form-control" />
+		<input type="number" 
+		       name="height" 
+		       ng-model="resize.height" 
+		       class="form-control" 
+		       placeholder="{{selectedEl.node.attributes.height.nodeValue}}"
+		       ng-change="resizeSelected(resize)" />
 	</div>
 	<div class="form-group">
 		<label for="height">Width:</label>
-		<input type="number" name="width" ng-model="resize.width" class="form-control" />
+		<input type="number" 
+		       name="width" 
+		       ng-model="resize.width" 
+		       class="form-control" 
+		       placeholder="{{selectedEl.node.attributes.width.nodeValue}}"
+		       ng-change="resizeSelected(resize)" />
+	</div>
+</div>
+
+<div uib-collapse="selectCollapsed" ng-show="!!selectedEl && selectedEl.type === 'text'">
+	<div>
+		<span class="btn btn-danger" ng-click="removeSelected()">Remove Selected</span>
+	</div>
+	<div class="form-group">
+		<label for="fontStyle">Font Style</label>
+		<select class="form-control" 
+		        name="fontStyle" 
+		        ng-model="editText.fontStyle"
+		        ng-change="editTextElement(selectedEl, editText)">
+			<option>Serif</option>
+			<option>Sans-serif</option>
+			<option>Cursive</option>
+			<option>Fantasy</option>
+			<option>Monospace</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="fontSize">Font Size</label>
+		<input type="number" 
+		      class="form-control" 
+		      name="fontSize" 
+		      ng-model="editText.fontSize"
+		      ng-change="editTextElement(selectedEl, editText)" />
+	</div>
+
+	<div class="form-group">
+		<label for="fontColor">
+			<a colorpicker="rgba" 
+			   type="text" 
+			   ng-model="editText.fontColor"
+			   ng-change="editTextElement(selectedEl, editText)" 
+			   href="#">
+				Font Color
+			</a>
+		</label>
+		<span class="btn" style="background-color:{{ editText.fontColor }};"></span>
+	</div>
+
+	<div class="form-group">
+		<label for="textContent">Content</label>
+		<textarea class="form-control" 
+		          name="textContent" 
+		          ng-model="editText.textContent"
+		          ng-change="editTextElement(selectedEl, editText)">
+		</textarea>
 	</div>
 </div>
 
