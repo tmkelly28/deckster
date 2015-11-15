@@ -2,10 +2,28 @@
 	<a ng-click="fbgImageCollapsed = !fbgImageCollapsed" href="#">
 		Add Frame Background Image
 	</a>
+
 </h4>
 <div uib-collapse="fbgImageCollapsed">
-	<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles, 'frame')"
-  accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
-Select File</span>
+	<span class="btn" 
+	      type="file" 
+	      ngf-select="uploadFiles($file, $invalidFiles, 'frame')"
+  		  accept="image/*" 
+  		  ngf-max-height="1000" 
+  		  ngf-max-size="20MB">
+	Select File
+	</span>
+
+	<span class="btn" 
+	      ng-click="fbgiurlCollapsed = !fbgiurlCollapsed">
+	      Enter Image Url
+	</span>
+
+	<div uib-collapse="fbgiurlCollapsed">
+		<div class="form-group">
+			<input class="form-control" name="bgUrl" ng-model="edit.fimgEnteredUrl" />
+			<span class="btn" ng-click="selectImage(edit.fimgEnteredUrl, 'frame')">Enter</span>
+		</div>
 	</div>
+</div>
 <hr / ng-show="hasFrame">

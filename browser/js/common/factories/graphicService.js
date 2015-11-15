@@ -20,23 +20,20 @@ app.factory('GraphicService', function () {
 		},
 		setImageBackground: function (paper, url, config) {
 			var image = paper.image(url);
+			console.log(image);
 			if (config !== 'frame') image.drag();
 			if (config === 'frame') {
 				image.attr({
 					transform: 'matrix(1,0,0,1,37,41)'
 				});
-				setTimeout(function () {
-					Snap.select('image').attr({
-						width: 265,
-						height: 265
-					});
-				}, 1000);
 			}
 
 			// append or prepend, depending on configuration
 			var g = paper.select('g');
 			if (config === 'back') g.prepend(image);
 			else g.append(image);
+
+			console.log('in gservice', image)
 
 			return image;
 		},

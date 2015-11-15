@@ -4,9 +4,27 @@
 	</a>
 </h4>
 <div uib-collapse="imageCollapsed">
-	<span class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles, 'front')"
-  accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
-Select File</span>
-		<span class="btn">Select Preset</span>
+	<span class="btn" 
+	      type="file" 
+	      ngf-select="uploadFiles($file, $invalidFiles, 'front')"
+  		  accept="image/*" 
+  		  ngf-max-height="1000" 
+  		  ngf-max-size="20MB">
+		Select File
+	</span>
+	
+	<span class="btn">Select Preset</span>
+	
+	<span class="btn" 
+	      ng-click="newImageUrlCollapsed = !newImageUrlCollapsed">
+	      Enter Image Url
+	</span>
+
+	<div uib-collapse="newImageUrlCollapsed">
+		<div class="form-group">
+			<input class="form-control" name="bgUrl" ng-model="edit.newImageUrl" />
+			<span class="btn" ng-click="selectImage(edit.newImageUrl, 'front')">Enter</span>
+		</div>
+	</div>
 	</div>
 <hr />

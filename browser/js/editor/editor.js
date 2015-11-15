@@ -16,16 +16,6 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     $scope.card = card;
     $scope.selectedEl = null;
     $scope.selectedElType = null;
-    $scope.toggleSaveAlert = false;
-    $scope.toggleErrorAlert = false;
-    $scope.borderSizeCollapsed = true;
-    $scope.fborderSizeCollapsed = true;
-    $scope.bgImageCollapsed = true;
-    $scope.fbgImageCollapsed = true;
-    $scope.imageCollapsed = true;
-    $scope.bgipCollapsed = true;
-    $scope.selectCollapsed = true;
-    $scope.textOptionsCollapsed = true;
     $scope.templateCheck = false;
     $scope.hasFrame = $scope.card.templateOrigin !== 'Blank';
     $scope.presetBackgroundImages = [
@@ -38,6 +28,22 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     ];
     $scope.presetImages = [];
 
+    /* toggles */
+    $scope.toggleSaveAlert = false;
+    $scope.toggleErrorAlert = false;
+    $scope.borderSizeCollapsed = true;
+    $scope.fborderSizeCollapsed = true;
+    $scope.bgImageCollapsed = true;
+    $scope.fbgImageCollapsed = true;
+    $scope.imageCollapsed = true;
+    $scope.bgipCollapsed = true;
+    $scope.selectCollapsed = true;
+    $scope.textOptionsCollapsed = true;
+    $scope.bgiurlCollapsed = true;
+    $scope.fbgiurlCollapsed = true;
+    $scope.newImageUrlCollapsed = true;
+    
+
 
     /* declare the paper (Snap representation of the svg) */
     var paper;
@@ -47,8 +53,8 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         console.log(this);
         $scope.selectedEl = this;
         $scope.selectedElType = this.type;
-        $rootScope.$digest();
         $scope.save();
+        $rootScope.$digest();
     }
 
     /* Move Snap configuration to the event queue to handle the async loading of SVG */
@@ -119,6 +125,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         CardService.saveChanges($scope.card._id, { svg: str[0].innerHTML, isTemplate: templateStatus, user: Session.user._id })
         .then(function (card) {
             $scope.card = card;
+            console.log('saved ', card)
         });
     }
     $scope.saveAsTemplate = function () {
@@ -136,6 +143,11 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         $scope.errFile = errFiles && errFiles[0];
 
         if (file) {
+            /* cache the width and height
+            due to the delay in rendering the svg, sometimes these attributes are not set in the DOM by the time we save
+            */
+            var cbHeight = file.$ngfHeight
+            var cbWidth = file.$ngfWidth
             file.upload = Upload.upload({
                 url: '/api/upload',
                 method: 'POST',
@@ -151,6 +163,11 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
                 var imageUrl = response.data.imageUrl;
                 var image = GraphicService.setImageBackground(paper, imageUrl, config);
                 GraphicService.addClickEvent(image, setSelected);
+
+                // fix height/width issues that may result from async loading of svg
+                if (!image.node.attributes.width) image.attr({ width: cbWidth });
+                if (!image.node.attributes.height) image.attr({ height: cbHeight });
+
                 $scope.save();
             });
         } else {
@@ -162,12 +179,13 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         } 
     }
 
-    /* methods for handling element selection */
     $scope.selectImage = function (imageUrl, config) {
         var image = GraphicService.setImageBackground(paper, imageUrl, config);
         GraphicService.addClickEvent(image, setSelected);
+        $scope.save();
     }
 
+    /* methods for handling element selection */
     $scope.removeSelected = function () {
         GraphicService.removeSelected($scope.selectedEl);
         $scope.selectedEl = null;
