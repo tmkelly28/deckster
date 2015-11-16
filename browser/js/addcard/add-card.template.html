@@ -1,15 +1,15 @@
 <form name="addCard">
 	<div class="form-group">
 		<label for="card">Give your new card a name!</label>
-		<input name="newCardName" ng-model="card.name" class="form-control" required="true" />
+		<input name="newCardName" ng-model="card.name" class="form-control" />
 	</div>
 	<div class="form-group">
 		<label for="templateSelect">Select a card template to get this started!</label>
-		<select name="templateSelect" class="form-control" ng-model="card.svg" required="true">
+		<select name="templateSelect" class="form-control" ng-model="card.svg">
 			<option ng-repeat="template in templates"
 			        value="{{template}}">{{ template.name }}</option>
 		</select>
 	</div>
 	<button ng-click="submit(deck._id, card)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Let's Go!</button>
-	<button ng-click="back()" class="btn btn-warning"><span class="glyphicon glyphicon-backward"></span> Wait a sec!</button>
+	<button ng-click="back()" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Wait a sec!</button>
 </form>

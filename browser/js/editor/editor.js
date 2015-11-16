@@ -202,6 +202,9 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     $scope.back = function () {
         $state.go('cards', {did: $scope.card.deck});
     }
+    $scope.goPrint = function () {
+        $state.go('print', {did: card.deck});
+    }
 
 
 });
