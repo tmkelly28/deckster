@@ -4,7 +4,11 @@
 	</a>
 </h4>
 <div uib-collapse="borderSizeCollapsed">
-	<input type="number" class="form-control" ng-model="edit.borderSize" ng-change="changeBorderSize(edit.borderSize)" />
+	<input type="number" 
+	       class="form-control" 
+	       ng-model="edit.borderSize" 
+	       placeholder="{{edit.borderSize}}"
+	       ng-change="changeBorderSize(edit.borderSize)" />
 </div>
 
 <hr />

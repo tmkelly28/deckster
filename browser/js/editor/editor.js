@@ -43,14 +43,12 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     $scope.fbgiurlCollapsed = true;
     $scope.newImageUrlCollapsed = true;
     
-
-
     /* declare the paper (Snap representation of the svg) */
     var paper;
 
     /* declare cb function for click event handler */
     function setSelected () {
-        console.log(this);
+        console.log(this)
         $scope.selectedEl = this;
         $scope.selectedElType = this.type;
         $scope.save();

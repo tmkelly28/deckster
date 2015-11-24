@@ -52,6 +52,7 @@
 		      class="form-control" 
 		      name="fontSize" 
 		      ng-model="editText.fontSize"
+		      placeholder="{{selectedEl.node.style.fontSize.slice(0,-2)}}"
 		      ng-change="editTextElement(selectedEl, editText)" />
 	</div>
 
@@ -73,6 +74,7 @@
 		<textarea class="form-control" 
 		          name="textContent" 
 		          ng-model="editText.textContent"
+		          placeholder="{{selectedEl.node.innerHTML}}"
 		          ng-change="editTextElement(selectedEl, editText)">
 		</textarea>
 	</div>
