@@ -1,0 +1,8 @@
+#logo g * {
+  fill-opacity: 0;
+  transition: fill-opacity 1s;
+}
+
+#logo.finished * {
+  fill-opacity: 0.8;
+}

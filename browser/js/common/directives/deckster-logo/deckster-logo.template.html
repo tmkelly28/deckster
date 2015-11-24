@@ -1,9 +1,9 @@
 <svg width="500" height="405" xmlns="http://www.w3.org/2000/svg" id="logo">
  <g>
   <title>Layer 1</title>
-  <path fill="none" stroke="#363636" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" transform="rotate(-40 193.9999999999999,201.99999999999997) " d="m83,46c0,-10.86758 9.13242,-20 20,-20l182,0c10.86758,0 20,9.13242 20,20l0,312c0,10.86758 -9.13242,20 -20,20l-182,0c-10.86758,0 -20,-9.13242 -20,-20l0,-312z" id="svg_1"/>
-  <path fill="none" stroke="#363636" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" transform="rotate(-20 257.00000000000006,200.99999999999994) " d="m146,45c0,-10.86758 9.13242,-20 20,-20l182,0c10.86758,0 20,9.13242 20,20l0,312c0,10.86758 -9.13242,20 -20,20l-182,0c-10.86758,0 -20,-9.13242 -20,-20l0,-312z" id="svg_2"/>
-  <path fill="none" stroke="#363636" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" d="m206,67c0,-10.86758 9.13242,-20 20,-20l182,0c10.86758,0 20,9.13242 20,20l0,312c0,10.86758 -9.13242,20 -20,20l-182,0c-10.86758,0 -20,-9.13242 -20,-20l0,-312z" id="svg_3"/>
+  <path fill="#731F26" stroke="#363636" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" transform="rotate(-40 193.9999999999999,201.99999999999997) " d="m83,46c0,-10.86758 9.13242,-20 20,-20l182,0c10.86758,0 20,9.13242 20,20l0,312c0,10.86758 -9.13242,20 -20,20l-182,0c-10.86758,0 -20,-9.13242 -20,-20l0,-312z" id="svg_1"/>
+  <path fill="#038C3E" stroke="#363636" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" transform="rotate(-20 257.00000000000006,200.99999999999994) " d="m146,45c0,-10.86758 9.13242,-20 20,-20l182,0c10.86758,0 20,9.13242 20,20l0,312c0,10.86758 -9.13242,20 -20,20l-182,0c-10.86758,0 -20,-9.13242 -20,-20l0,-312z" id="svg_2"/>
+  <path fill="#074973" stroke="#363636" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" d="m206,67c0,-10.86758 9.13242,-20 20,-20l182,0c10.86758,0 20,9.13242 20,20l0,312c0,10.86758 -9.13242,20 -20,20l-182,0c-10.86758,0 -20,-9.13242 -20,-20l0,-312z" id="svg_3"/>
  </g>
 </svg>
 
@@ -11,5 +11,7 @@
     new Vivus('logo', {
         duration: 200,
         type: 'delayed'
+    }, function (obj) {
+    	obj.el.classList.add('finished');
     });
 </script>
