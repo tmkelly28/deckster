@@ -1,7 +1,7 @@
 .idea
 node_modules
 bower_components
-server/env
+server/env/development.js
 npm-debug.log
 public
 .DS_Store
