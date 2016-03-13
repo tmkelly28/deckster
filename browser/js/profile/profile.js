@@ -15,12 +15,12 @@ app.controller('ProfileCtrl', function ($scope, $state, user, AuthService, $root
 
     var setUser = function () {
         AuthService.getLoggedInUser()
-        .then(function (user) {
-            return UserService.fetchById(user._id);
+        .then(function (_user) {
+            return UserService.fetchById(_user._id);
         })
-        .then(function (user) {
-            $scope.user = user;
-            $scope.decks = user.decks;
+        .then(function (_user) {
+            $scope.user = _user;
+            $scope.decks = _user.decks;
         });
     };
 
@@ -30,11 +30,11 @@ app.controller('ProfileCtrl', function ($scope, $state, user, AuthService, $root
 
 
     /*  The controls with the navbar directive communicate with the profile via events.
-        This allows the profile to be populated after logging in, when the Your Profile option is selected 
+        This allows the profile to be populated after logging in, when the Your Profile option is selected
     */
     $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
     $rootScope.$on('deckAdded', setDeck);
-    
+
     // When logging in, this invocation sets the user
     setUser();
 
@@ -53,7 +53,7 @@ app.controller('ProfileCtrl', function ($scope, $state, user, AuthService, $root
         });
 
         modalInstance.result.then(function () {
-            
+
         });
 
     }; /* end scope.open */
@@ -62,6 +62,6 @@ app.controller('ProfileCtrl', function ($scope, $state, user, AuthService, $root
         DeckService.removeDeck(id)
         .then(function (cache) {
             $scope.decks = cache;
-        });  
+        });
     }
 });

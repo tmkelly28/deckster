@@ -1,11 +1,10 @@
 var router = require('express').Router();
 var mongoose = require("mongoose");
-var _ = require('lodash');
 var Card = mongoose.model('Card');
 var Deck = mongoose.model('Deck');
 
 // GET all cards from a deck
-router.get("/", function (req, res, next) {
+router.get("/", function (req, res) {
 	res.status(200).json(req.deck.cards);
 });
 
@@ -18,7 +17,7 @@ router.post("/", function (req, res, next) {
 		_card = card;
 		return Deck.findByIdAndUpdate(req.deck._id, { $push: { 'cards': card._id } })
 	})
-	.then(function (deck) {
+	.then(function () {
 		res.status(201).json(_card);
 	})
 	.then(null,next);
@@ -35,7 +34,7 @@ router.param("id", function (req, res, next, id) {
 });
 
 // GET a card by id
-router.get("/:id", function (req, res, next) {
+router.get("/:id", function (req, res) {
 	res.json(req.card);
 });
 
@@ -57,7 +56,7 @@ router.delete("/:id", function (req, res, next) {
 	.then(function () {
 		return Deck.findByIdAndUpdate(req.deck._id, { $pull: { 'cards': _card._id } });
 	})
-	.then(function (deck) {
+	.then(function () {
 		res.status(200).json(_card);
 	})
 	.then(null,next);

@@ -1,4 +1,4 @@
-app.factory('CardService', function ($http, Session, DeckService) {
+app.factory('CardService', function ($http) {
 	var currentCard;
 
 	return {

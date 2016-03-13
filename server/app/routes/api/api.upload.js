@@ -1,10 +1,8 @@
 var router = require('express').Router();
-var mongoose = require("mongoose");
-var _ = require('lodash');
 var AWS = require('aws-sdk');
 
-var accessKeyId =  require('../../../env')['AWS']['accessKey'];
-var secretAccessKey = require('../../../env')['AWS']['secretKey'];
+var accessKeyId = require('../../../env').AWS.accessKey;
+var secretAccessKey = require('../../../env').AWS.secretKey;
 
 AWS.config.update({
     accessKeyId: accessKeyId,
@@ -17,7 +15,7 @@ function rename (filename) {
     return filename.replace(/\W+/g, '-').toLowerCase();
 }
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
 
 	var key = rename(req.body.key);
 	var data = req.file.buffer
@@ -28,7 +26,7 @@ router.post('/', function (req, res, next) {
             Body: data,
             ACL: 'public-read'
     };
-    
+
     s3.putObject(params, function (perr, pres) {
     	if (perr) {
     		console.log("Error uploading data: ", perr);

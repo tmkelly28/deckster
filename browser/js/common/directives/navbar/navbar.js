@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $uibModal, DeckService) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $uibModal) {
 
     return {
         restrict: 'E',
@@ -45,7 +45,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                     size: size
                 });
 
-                modalInstance.result.then(function (newDeck) {
+                modalInstance.result.then(function () {
                     $rootScope.$broadcast('deckAdded');
                 });
 

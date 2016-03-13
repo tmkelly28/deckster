@@ -12,17 +12,19 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, GraphicService, $rootScope, Upload, Session, $state) {
-    
+
     $scope.card = card;
     $scope.selectedEl = null;
     $scope.selectedElType = null;
     $scope.templateCheck = false;
     $scope.hasFrame = $scope.card.templateOrigin !== 'Blank';
     $scope.presetBackgroundImages = [
-        {   name: 'Pure of Heart',
+        {
+            name: 'Pure of Heart',
             url: 'https://s3-us-west-2.amazonaws.com/deckster/pureheart.jpg'
         },
-        {   name: 'Sinister Intent',
+        {
+            name: 'Sinister Intent',
             url: 'https://s3-us-west-2.amazonaws.com/deckster/sinisterintent.jpg'
         }
     ];
@@ -42,7 +44,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
     $scope.bgiurlCollapsed = true;
     $scope.fbgiurlCollapsed = true;
     $scope.newImageUrlCollapsed = true;
-    
+
     /* declare the paper (Snap representation of the svg) */
     var paper;
 
@@ -54,11 +56,6 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         $scope.save();
         $rootScope.$digest();
     }
-
-    /* Move Snap configuration to the event queue to handle the async loading of SVG */
-    $(document).ready(function(){
-        setTimeout(snapConfiguration, 0);
-    });
 
     // Snap configuration on page load;
     function snapConfiguration () {
@@ -74,6 +71,11 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
             GraphicService.addClickEvent(i, setSelected);
         });
     }
+
+    /* Move Snap configuration to the event queue to handle the async loading of SVG */
+    $(document).ready(function(){
+        setTimeout(snapConfiguration, 0);
+    });
 
     /* parse string to DOM svg */
     var svgContainer = document.getElementById('svg-container');
@@ -122,10 +124,10 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
         var str = $('#svg-container');
         var templateStatus = $scope.card.isTemplate || $scope.templateCheck;
         CardService.saveChanges($scope.card._id, { svg: str[0].innerHTML, isTemplate: templateStatus, user: Session.user._id })
-        .then(function (card) {
-            $scope.card = card;
-            console.log('saved ', card)
-        });
+            .then(function (_card) {
+                $scope.card = _card;
+                console.log('saved ', _card)
+            });
     }
     $scope.saveAsTemplate = function () {
         $scope.templateCheck = true;
@@ -175,7 +177,7 @@ app.controller('EditorCtrl', function ($scope, card, CardService, $timeout, Grap
             $timeout(function () {
                 $scope.toggleErrorAlert = false;
             }, 2000);
-        } 
+        }
     }
 
     $scope.selectImage = function (imageUrl, config) {

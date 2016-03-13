@@ -1,7 +1,6 @@
 var router = require('express').Router();
 var mongoose = require("mongoose");
 var _ = require('lodash');
-var passport = require('passport');
 var User = mongoose.model('User');
 
 // GET all users by query
@@ -39,7 +38,7 @@ router.param("id", function (req, res, next, id) {
 });
 
 // GET a user by id
-router.get("/:id", function (req, res, next) {
+router.get("/:id", function (req, res) {
 	res.json(req.requestedUser);
 });
 

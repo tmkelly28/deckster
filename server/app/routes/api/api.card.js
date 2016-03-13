@@ -1,9 +1,6 @@
 var router = require('express').Router();
 var mongoose = require("mongoose");
-var _ = require('lodash');
-var passport = require('passport');
 var Card = mongoose.model('Card');
-
 
 router.get('/templates', function (req, res, next) {
 	Card.getTemplatesForUser(req.user._id)
@@ -24,7 +21,7 @@ router.param("id", function (req, res, next, id) {
 });
 
 // GET a card by id
-router.get("/:id", function (req, res, next) {
+router.get("/:id", function (req, res) {
 	res.status(200).json(req.card);
 });
 
