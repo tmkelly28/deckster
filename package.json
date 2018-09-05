@@ -4,7 +4,8 @@
   "description": "An app for creating card games",
   "main": "server/start.js",
   "scripts": {
-    "start": "nodemon --watch server -e js,html server/start.js",
+    "start": "node server -e js,html server/start.js",
+    "start:dev": "nodemon --watch server -e js,html server/start.js",
     "postinstall": "bower install && gulp build"
   },
   "engines": {
