@@ -21,14 +21,12 @@
     <script src="/main.js"></script>
 </head>
 <body ng-app="Deckster">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                <navbar></navbar>
-            </div>
-            <div class="col-md-10">
-                <div id="main" class="fade" ui-view></div>
-            </div>
+    <div class="fill-xy flex">
+        <div class="col-2">
+            <navbar></navbar>
+        </div>
+        <div class="col-10 flex-auto">
+            <div id="main" class="fade" ui-view></div>
         </div>
     </div>
 </body>
